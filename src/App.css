@@ -1,33 +1,723 @@
-.App {
+body {
+  background-color: #f2f2f2;
+}
+
+h1, h2 {
+  margin-left: 50px;
+}
+
+.header a, .header a:visited {
+  color: white;
+  text-decoration: none;
+  padding-left: 20px;
+}
+
+.header a:hover {
+  color: #fcd95d;
+  text-decoration: none;
+}
+
+a, a:visited {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline dotted;
+}
+
+.exchangeLink {
+  color: orange;
+}
+
+.exchangeLink:hover {
+  text-decoration: underline dotted;
+  color: yellow;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+   -webkit-transition-delay: 9999s;
+   transition-delay: 9999s;
+}
+
+.header {
+  display: block;
+  width: 100%;
+  height: 60px;
+  background-color: black;
+  color: white;
+  border-bottom: 1px solid white;
+}
+
+.footer {
+  bottom: 0;
+  width: 100%;
+  height: 250px;
+  background-color: black;
+  color: white;
+  border-top: 1px solid white;
+}
+
+.footerCenter {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: auto;
+  height: inherit;
+  width: 1200px;
+}
+
+.footerLeft {
+  display: flex;
+  flex-direction: column;
+  height: inherit;
+  width: 300px;
+  text-align: right;
+  padding-right: 20px;
+}
+
+.footerMiddle {
+  display: flex;
+  flex-direction: column;
+  height: inherit;
+  width: 600px;
+  border: 1px solid white;
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.footerRight {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  height: inherit;
+  width: 300px;
+  text-align: left;
+  padding-left: 20px;
+}
+
+.footerLink {
+  color: white;
+  margin-top: 20px;
+}
+
+.footerLink:hover {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.footerLink:visited {
+  color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.toast {
+  display: block;
+  position: sticky;
+  width: 400px;
+  height: 60px;
+  bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  border: 1px solid grey;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  text-align: center;
+  line-height: 3.5em;
+  animation: fadein 2s;
+  z-index: 100;
+}
+
+@keyframes fadein {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeout {
+  from {opacity: 1;}
+  to {opacity: 0;}
+}
+
+.logo {
+  padding-top: 20px;
+  padding-left: 10px;
+  float: left;
+}
+
+.unhappy-face {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  font-size: 100px;
+  width: 200px;
+  height: 100px
+}
+
+.header_links {
+  float: right;
+  padding-top:20px;
+  padding-right:100px;
+}
+
+.body {
+  display: block;
+  background-color: darkslategray;
+  height: 800px;
+}
+
+.bodyWrapper {
+  display: block;
+  padding: 50px;
+}
+
+.coinsPageBody {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  width: 1000px;
+  margin-bottom: 200px;
+  margin-left:auto;
+  margin-right:auto;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.buyBtn {
+  display: block;
+  width: 100px;
+  height: 50px;
+  background-color: rgb(22, 179, 92);
+  color: white;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  line-height: 3em;
+  border-radius: 5px;
+}
+
+.buyBtn:hover{
+  background-color: rgb(31, 218, 115);
+}
+
+
+.cancelBtn {
+  display: block;
+  width: 100px;
+  height: 50px;
+  background-color: rgb(179, 22, 22);
+  color: white;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  line-height: 3em;
+  border-radius: 5px;
+}
+
+.cancelBtn:hover{
+  background-color: rgb(218, 31, 31);
+}
+
+.bundles {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 800px;
+  height: 400px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.bundle {
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  width: 200px;
+}
+
+.bundleTop {
+  margin-top: 100px;
+  height: 200px;
+  width: 200px;
+  border: 1px solid black;
+  border-radius: 200px;
+  text-align: center;
+  line-height: 200px;
+  font-size: 40px;
+}
+
+.bundleTop-Selected {
+  margin-top: 100px;
+  height: 200px;
+  width: 200px;
+  border: 1px solid black;
+  border-radius: 200px;
+  text-align: center;
+  line-height: 200px;
+  font-size: 40px;
+  background-color: rgb(197, 197, 197);
+}
+
+.bundleTop:hover {
+  background-color: rgb(245, 245, 245);
+}
+
+.exchangeWrapper {
+  border: 1px solid black;
+  width: 900px;
+  height: 1000px;
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.exchangeHeader {
+  display: flex;
+  flex-direction: row;
+  width: inherit;
+  background-color: black;
+  height: 100px;
+}
+
+.select {
+  user-select: none;
+  display: inline-block;
+  width: 100px;
+  height: inherit;
+  border: 1px solid white;
+  color: white;
+  text-align: center;
+  line-height: 5.5;
+}
+
+.select:hover {
+  background-color: #1d1d1d;
+}
+
+.casual_selected {
+  background-color: #3582a5;
+}
+
+.casual_selected:hover {
+  background-color: #439bc4;
+}
+
+.vs_selected {
+  background-color: brown;
+}
+
+.vs_selected:hover {
+  background-color: rgb(196, 51, 51);
+}
+
+.coach_selected {
+  background-color: #1ec45e;
+}
+
+.coach_selected:hover {
+  background-color: #22dd6a;
+}
+
+.coachRow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: inherit;
+  height: 80px;
+  border: 1px solid grey;
+  align-items: baseline;
+}
+
+.coachName {
+  display: inline-block;
+  width: 250px;
+  height: inherit;
+  align-items: center;
+  line-height: 4.5;
+  margin-left: 25px;
+}
+
+.coachRating {
+  display: inline-block;
+  width: 50px;
+  height: inherit;
+  line-height: 4.5;
+}
+
+.coachPrice {
+  display: inline-block;
+  width: 50px;
+  line-height: 4.5;
+  height: inherit;
+}
+
+.coachNext {
+  display: inline-block;
+  line-height: 4.5;
+  width: 100px;
+  height: inherit;
+}
+
+.coachTypes {
+  display: flex;
+  flex-direction: row;
+  width: 100px;
+  line-height: 4.5;
+  height: inherit;
+  justify-content: space-around;
+}
+
+.coachTypes_m {
+  display: inline-block;
+  width: 20px;
+  line-height: 4.5;
+  height: 20px;
+}
+
+.inline-buy-btn {
+  display: inline-block;
+  width: 80px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #1ec45e;
+  border: 1px solid white;
+  color: white;
+  text-align: center;
+  margin-left: auto;
+  margin-right: 20px;
+  padding-top: 12px;
+}
+
+.exchangeWrapper_stage1 {
+  width: 500px;
+  margin-top: 50px;
+  height: 2000px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+}
+
+.exchangeBody_stage1 {
+  display: flex;
+  flex-direction: column;
+  width: inherit;
+  background-color: rgba(255, 255, 255, 0.1);
+  height: 650px;
+  border: 1px solid white;
+  border-radius: 20px;
+}
+
+.search {
+  display: block;
+  width: 273px;
+  margin: 0 auto;
+}
+
+.search_left {
+  background-color: white;
+  height: 30px;
+  width: 50px;
+  float: left;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  border-top: 1px solid grey;
+  border-left: 1px solid grey;
+  border-bottom: 1px solid grey;
+}
+
+.magnifying_glass {
+  -webkit-transform: rotate(45deg); 
+  -moz-transform: rotate(45deg); 
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  display: block;
+  width: 20px;
+  height: 30px;
+  margin-left: 10px;
+  font-size: 25px;
+  user-select: none;
+}
+
+.search_right {
+  background-color: white;
+  height: 30px;
+  width: 35px;
+  float: right;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border: 1px solid grey;
+}
+
+.search_right:hover {
+  background-color: #fcd95d;
+  border-left: 1px solid darkslategrey;
+  color: white;
+}
+
+.search_right:active {
+  background-color: black;
+  color: white;
+}
+
+#search_input {
+  float: none;
+  background-color: white;
+  height: 30px;
+  width: 215px;
+  padding: 0;
+  border: 0;
+  margin-bottom: auto;
+  outline: none;
+  font-size: 15px;
+  margin-left: -30px;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+}
+
+.profilesMini {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@keyframes profile_mini_hover {
+  from {background-color: inherit;}
+  to {background-color: #d6d4d4;}
+}
+
+.profile_mini {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-top: 20px;
+  border: 1px solid grey;
+  width: 350px;
+  height: 180px;
+}
+
+.profile_mini:hover {
+  animation: profile_mini_hover 0.5s linear;
+  background-color: #d6d4d4;
+}
+
+.profile_mini_avatar {
+  display: block;
+  border: 1px solid grey;
+  width: 100px;
+  height: 100px;
+}
+
+.profile_mini_text {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+.profile_mini_name {
+  font-size: 20px;
+}
+
+.profile_mini_level {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.profile_main {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1000px;
+  border: 1px solid grey;
+}
+
+.profile_main_avatar {
+  display: block;
+  width: 400px;
+  height: 400px;
+  
+}
+
+.profile_main_text {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+}
+
+.profile_main_name {
+  font-size: 60px;
+}
+
+.profile_main_level {
+  font-size: 60px;
+  font-weight: bold;
+}
+
+.configWrapper {
+  display: flex;
+  flex-direction: row;
+  height: 800px;
+  width: 1000px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.configSide {
+  display: flex;
+  flex-direction: column;
+  width: 180px;
+  border-right: 1px solid black;
+}
+
+.configTitleText {
+  font-size: 40px;
+  font-weight: bold;
+  display: block;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px;
+  text-align: center;
+}
+
+.configBodyText {
+  font-size: 20px;
+  display: block;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  width: inherit;
+}
+
+.configContent {
+  display: flex;
+  flex-direction: column;
+  width: 780px;
+  height: inherit;
+  padding-left:40px;
+  padding-right:40px;
+}
+
+.configTab {
+  display: block;
+  height: 90px;
+  border-bottom: 1px solid black;
+  padding-top: 55px;
+  padding-right: 10px;
+  text-align: right;
+  user-select: none;
+}
+
+.configTab:hover {
+  background-color: black;
+  color: white;
+}
+
+.configTab:active {
+  background-color: rgb(31, 31, 31);
+  color: white;
+}
+
+.configTab:first-of-type {
+  border-top-left-radius: 10px;
+}
+
+.login_wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  height: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  margin-bottom: 300px;
+  text-align: center;
+  border: 1px solid grey;
+  border-radius: 20px;
+}
+
+.register_wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  height: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  margin-bottom: 300px;
+  text-align: center;
+  border: 1px solid grey;
+  border-radius: 20px;
+}
+
+.login-input {
+  outline: none;
+  height: 40px;
+  width: 200px;
+  border-radius: 20px;
+  border: 1px solid white;
+  background-color: #d6d4d4;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-weight: bold;
+}
+
+
+.login-btn {
+  outline: none;
+  height: 40px;
+  width: 80px;
+  border-radius: 20px;
+  border: 1px solid white;
+  background-color: #d6d4d4;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.login-btn-ghosted {
+  outline: none;
+  height: 40px;
+  width: 80px;
+  border-radius: 20px;
+  border: 1px solid white;
+  background-color: #d6d4d4;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: grey;
+}
+
+.login-btn:hover {
+  background-color: #e4e4e4;
+}
+
+.login-btn:active {
+  background-color: #c2c2c2;
+}
+
+.react-datepicker__time-list-item--disabled {
+  display: none;
+}
+
+.selectDate {
+  display: block;
+  width: 100px;
+  height: 40px;
 }
