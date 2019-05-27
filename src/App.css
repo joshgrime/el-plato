@@ -561,6 +561,56 @@ input:-webkit-autofill:active {
   font-weight: bold;
 }
 
+.host-profile-tag {
+  display: block;
+  width: 50px;
+  height: 25px;
+  background-color: #22dd6a;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 2px;
+}
+
+.host-twitch-tag {
+  display: flex;
+  flex-direction: row;
+  width: 200px;
+  height: 25px;
+  border-radius: 2px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.host-twitch-tag-left {
+    font-size: 11px;
+    text-align: center;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+    background-color: purple;
+    color: white;
+    font-weight: bold;
+    border-bottom-left-radius: 2px;
+    border-top-left-radius: 2px;
+    line-height: 24px;
+}
+
+.host-twitch-tag-right {
+    display: inline-block;
+    width: 150px;
+    height: 21px;
+    background-color: white;
+    color: purple;
+    font-weight: bold;
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+    border: 2px solid purple;
+    text-align: center;
+}
+
+
+
 .configWrapper {
   display: flex;
   flex-direction: row;

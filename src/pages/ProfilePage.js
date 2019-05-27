@@ -62,7 +62,7 @@ class ProfilePage extends React.Component {
                 <div>
                 <Header />
                 Player Profile<p />
-                <ProfileMain playerName={this.state.data.name} playerGames={this.state.data.games} playerLevel={this.state.data.level} host={this.state.data.host}/>
+                <ProfileMain playerName={this.state.data.name} playerGames={this.state.data.games} playerLevel={this.state.data.level} host={this.state.data.host} twitchauthed={this.state.data.twitchauthed} twitchusername={this.state.data.twitchusername}/>
                 </div>
             );
         } 

@@ -12,6 +12,7 @@ import MyProfileConfig from './pages/MyProfileConfig.js';
 import { CoinsPage, PurchasePage } from './pages/Coins.js';
 import Exchange from './pages/Exchange.js';
 import { BookingCalendar, SetCalendar } from './pages/components/calendar.js';
+import { TwitchIntegration, TwitchComplete } from './pages/TwitchIntegration.js';
 import './App.css';
 
 class App extends Component {
@@ -32,7 +33,9 @@ class App extends Component {
          <Route exact path="/coins" component={CoinsPage} />
          <Route exact path="/coins/purchase" component={PurchasePage} />
          <Route path="/players/:playerId" component={ProfilePage} />
-         <Route path="/calendar" component={SetCalendar} />
+         <Route exact path="/calendar" component={SetCalendar} />
+         <Route path="/profile/settings/twitch-authenticate" component={TwitchIntegration} />
+         <Route path="/profile/settings/twitch-authenticate-complete" component={TwitchComplete} />
        </Switch>
        </div>
      </Router>

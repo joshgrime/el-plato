@@ -12,6 +12,8 @@ class MyProfileConfig extends React.Component {
         super(props);
         this.state = {
             loading: true,
+            twitchauthed: false,
+            twitchUsername: null,
             selectedTab: 'default',
             userId: null,
             startDate: new Date(),
@@ -43,10 +45,19 @@ class MyProfileConfig extends React.Component {
             .then(res=> {
                 console.log(res);
                 if (res.data[0].host === 1) this.tabs.unshift('Host Settings');
+                
+                var twitchauthed = this.state.twitchauthed;
+                var twitchUsername;
+                if (res.data[0].twitchauthed === 1) {
+                    twitchauthed = true;
+                    twitchUsername = res.data[0].twitchusername;
+                }
+
                 var tabElements = this.tabs.map(tab => {  
                     return <div className="configTab" onClick={this.changeView}>{tab}</div>
                 });
-               this.setState({loading:false, data:res.data, userId:id, tabElements:tabElements});
+
+               this.setState({loading:false, data:res.data, userId:id, tabElements:tabElements, twitchauthed: twitchauthed, twitchUsername: twitchUsername});
             });
         }
 
@@ -82,10 +93,19 @@ class MyProfileConfig extends React.Component {
         }
 
         else if (this.state.selectedTab === 'account') {
+            var twitchIntegration;
+            if (!this.state.twitchauthed) {
+                twitchIntegration = <div><Link to={'/profile/settings/twitch-authenticate'}>Integrate Twitch</Link></div>
+            }
+            else {
+                twitchIntegration = <div>{this.state.twitchUsername}<p />Disable Twitch Integration</div>
+            }
             content = <div>
             <div className="configTitleText">Account Settings</div>
             <div className="configBodyText">
                 Change your password.
+                <p />
+                {twitchIntegration}
             </div>
         </div>;
         }

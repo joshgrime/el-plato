@@ -70,7 +70,7 @@ class MyProfilePage extends React.Component {
                 <div>
                 <Header userIdCallback={this.getUserId} />
                 <Link to={'/profile/settings'}>Account Settings</Link><p />
-                <ProfileMain playerName={this.state.data[0].name} playerGames={this.state.data[0].games} playerLevel={this.state.data[0].level} coins={this.state.data[0].coins} />
+                <ProfileMain playerName={this.state.data[0].name} playerGames={this.state.data[0].games} playerLevel={this.state.data[0].level} coins={this.state.data[0].coins} twitchauthed={this.state.data[0].twitchauthed} twitchusername={this.state.data[0].twitchusername} host={this.state.data[0].host} />
                 </div>
             );
         } 

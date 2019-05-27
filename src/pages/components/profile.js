@@ -58,12 +58,28 @@ class ProfileMain extends React.Component {
                                 return m + 'px';
                             }
                          })(this.props.margin);
+
+        this.goToTwitch = this.goToTwitch.bind(this);
+
     }
+
+    goToTwitch = () => {
+        window.open("https://www.twitch.tv/"+this.props.twitchusername);
+    }
+
     render (){
 
         var host = <div></div>;
         if (this.props.host === 1) {
             host = <div className="host-profile-tag">HOST</div>;
+        }
+
+        var twitch = <div></div>;
+        if (this.props.twitchauthed === 1) {
+            twitch = <div className="host-twitch-tag" onClick={this.goToTwitch}>
+                <div className="host-twitch-tag-left">TWITCH</div>
+                <div className="host-twitch-tag-right">{this.props.twitchusername}</div>
+            </div>;
         }
 
         var coins = <div></div>;
@@ -77,6 +93,7 @@ class ProfileMain extends React.Component {
                 <div className="profile_main_text">
                     <div className="profile_main_name">{this.props.playerName}</div>
                     {host}
+                    {twitch}
                     <div className="profile_main_level">Level: {this.props.playerLevel}</div>
                     <div className="profile_main_games">{this.games}<br />{coins}</div>
                 </div>
