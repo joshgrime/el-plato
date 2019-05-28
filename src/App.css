@@ -614,7 +614,7 @@ input:-webkit-autofill:active {
 .configWrapper {
   display: flex;
   flex-direction: row;
-  height: 800px;
+  min-height: 800px;
   width: 1000px;
   margin-top: 50px;
   margin-bottom: 100px;
@@ -683,6 +683,109 @@ input:-webkit-autofill:active {
 .configTab:first-of-type {
   border-top-left-radius: 10px;
 }
+
+.config-disabledGame {
+  display: block;
+  width: 100px;
+  padding: 5px;
+  background-color: rgb(128, 0, 43);
+  height: 25px;
+  border-radius: 20px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+
+.config-disabledGame:hover {
+  color: rgb(128, 0, 43);
+  background-color: white;
+}
+
+.config-enabledGame {
+  display: block;
+  width: fit-content;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: rgb(93, 226, 93);
+  height: 25px;
+  border-radius: 20px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  border: 4px solid rgb(93, 226, 93);
+  margin-bottom: 20px;
+}
+
+.config-enabledGame:hover {
+  color: rgb(93, 226, 93);
+  background-color: white;
+}
+
+.config-enabledGame-pending {
+  display: block;
+  width: fit-content;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: white;
+  height: 25px;
+  color: rgb(93, 226, 93);
+  border-radius: 20px;
+  text-align: center;
+  font-weight: bold;
+  border: 4px solid rgb(93, 226, 93);
+  margin-bottom: 20px;
+}
+
+.config-enabledGam-pending:hover {  
+  color: white;
+  background-color: rgb(93, 226, 93);
+}
+
+
+.config-disabledGame {
+  display: block;
+  width: fit-content;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: rgb(128, 0, 43);
+  height: 25px;
+  border-radius: 20px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  border: 4px solid rgb(128, 0, 43);
+  margin-bottom: 20px;
+}
+
+.config-disabledGame-pending {
+  display: block;
+  width: fit-content;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 25px;
+  border-radius: 20px;
+  text-align: center;
+  font-weight: bold;
+  border: 4px solid rgb(128, 0, 43);
+  margin-bottom: 20px;
+  color: rgb(128, 0, 43);
+  background-color: white;
+}
+
+.config-disabledGame-pending:hover {
+  background-color: rgb(128, 0, 43);
+  color: white;
+}
+
+
 
 .login_wrapper {
   display: flex;

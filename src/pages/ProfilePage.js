@@ -9,7 +9,8 @@ class ProfilePage extends React.Component {
         super(props);
         this.state = {
             loading: true,
-            data: {}
+            data: {},
+            avatar: null
         }
     }
 
@@ -19,7 +20,11 @@ class ProfilePage extends React.Component {
 
     componentDidMount(){
         axios.get(apiService+'/playerData/'+this.props.match.params.playerId)
-        .then(response => {console.log(response); this.setState({data:response.data[0], loading:false})})
+        .then(response => {console.log(response);
+            var avatar = null;
+            if (response.data[0].twitchavatar !== null) avatar = response.data[0].twitchavatar;
+            this.setState({data:response.data[0], loading:false, avatar: avatar});
+        })
         .catch(error => {this.setState({loading:'error'})
     });
     }
@@ -62,7 +67,7 @@ class ProfilePage extends React.Component {
                 <div>
                 <Header />
                 Player Profile<p />
-                <ProfileMain playerName={this.state.data.name} playerGames={this.state.data.games} playerLevel={this.state.data.level} host={this.state.data.host} twitchauthed={this.state.data.twitchauthed} twitchusername={this.state.data.twitchusername}/>
+                <ProfileMain playerName={this.state.data.name} playerGames={this.state.data.games} playerLevel={this.state.data.level} host={this.state.data.host} twitchauthed={this.state.data.twitchauthed} twitchusername={this.state.data.twitchusername} avatar={this.state.avatar}/>
                 </div>
             );
         } 

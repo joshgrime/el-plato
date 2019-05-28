@@ -24,6 +24,7 @@ class PlayersPage extends React.Component {
                     playerGames={player.games}
                     playerLevel={player.level}
                     playerId={player.id}
+                    avatar={player.twitchavatar}
                     margin={50} />
                 ));
         this.setState({

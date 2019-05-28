@@ -11,7 +11,8 @@ class MyProfilePage extends React.Component {
         this.state = {
             loading: true,
             userId: null,
-            data: {}
+            data: {},
+            avatar: null,
         }
     }
 
@@ -19,7 +20,9 @@ class MyProfilePage extends React.Component {
         if (id !== false) {
             axios.get(apiService+'/playerData/'+id)
             .then(res=> {
-               this.setState({loading:false, data:res.data, userId:id});
+                var avatar = null;
+                 if (res.data[0].twitchavatar !== null) avatar = res.data[0].twitchavatar;
+               this.setState({loading:false, data:res.data, userId:id, avatar: avatar});
             });
         }
 
@@ -70,7 +73,7 @@ class MyProfilePage extends React.Component {
                 <div>
                 <Header userIdCallback={this.getUserId} />
                 <Link to={'/profile/settings'}>Account Settings</Link><p />
-                <ProfileMain playerName={this.state.data[0].name} playerGames={this.state.data[0].games} playerLevel={this.state.data[0].level} coins={this.state.data[0].coins} twitchauthed={this.state.data[0].twitchauthed} twitchusername={this.state.data[0].twitchusername} host={this.state.data[0].host} />
+                <ProfileMain playerName={this.state.data[0].name} playerGames={this.state.data[0].games} playerLevel={this.state.data[0].level} coins={this.state.data[0].coins} twitchauthed={this.state.data[0].twitchauthed} twitchusername={this.state.data[0].twitchusername} host={this.state.data[0].host} avatar={this.state.avatar}/>
                 </div>
             );
         } 

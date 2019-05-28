@@ -57,7 +57,7 @@ class MyProfileConfig extends React.Component {
                     return <div className="configTab" onClick={this.changeView}>{tab}</div>
                 });
 
-               this.setState({loading:false, data:res.data, userId:id, tabElements:tabElements, twitchauthed: twitchauthed, twitchUsername: twitchUsername});
+               this.setState({loading:false, data:res.data[0], userId:id, tabElements:tabElements, twitchauthed: twitchauthed, twitchUsername: twitchUsername});
             });
         }
 
@@ -80,6 +80,7 @@ class MyProfileConfig extends React.Component {
                 <div className="configBodyText">
                     Add games to your profile.
                 </div>
+                <GamesConfig enabledGames={this.state.data.games} />
             </div>;
         }
 
@@ -162,6 +163,220 @@ class MyProfileConfig extends React.Component {
                 );
             }
         } 
+}
+
+class GamesConfig extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            games:[],
+            enabledGames:[],
+            disabledGames:[],
+            pendingEnable:[],
+            pendingDisable:[]
+        };
+        this.toast = null;
+        this.handleClick = this.handleClick.bind(this);
+        this.handleSave = this.handleSave.bind(this);
+    }
+
+    componentDidMount(){
+        axios.get(apiService+'/games')
+        .then(res => {
+           var a = [];
+           for (let x of res.data){
+               a.push(x);
+           }        
+           var enabledGames = [];
+           var disabledGames = [];
+            if (this.props.enabledGames !== null) {
+                var b = this.props.enabledGames.split(',');
+                    for (let y=0;y<a.length;y++) {
+                    var enabled = false;
+                    for (let x of b) {
+                        if (a[y].abbrv === x) {
+                            enabled = true;
+                        }
+                    }
+                    if (enabled) {
+                        enabledGames.push(a[y]);
+                    }
+                    else {
+                        disabledGames.push(a[y]);
+                    }
+                }
+            }
+            else {
+                disabledGames = a;
+            }
+            this.pending = enabledGames;
+            this.setState({games:a,enabledGames:enabledGames, disabledGames:disabledGames});
+        });
+    }
+
+    handleClick = (e) => {
+        var g = e.target.attributes[1].nodeValue;
+
+        if (e.target.className == 'config-enabledGame') {
+
+            var index = -1;
+                var arr2 = this.state.enabledGames;
+                for (let i=0; i<arr2.length;i++) {
+                    if (arr2[i].abbrv == g) {
+                        index = i;
+                        break;
+                    }
+                }
+                if (index > -1) {
+                    arr2.splice(index, 1);
+                }
+
+                var arr = this.state.pendingDisable;
+                for (let x of this.state.games){
+                    if (g == x.abbrv) {
+                        arr.push(x);
+                        break;
+                    }
+                }
+                this.setState({pendingDisable:arr, enabledGames:arr2});
+        }
+
+        else if (e.target.className == 'config-disabledGame') {
+
+            var index = -1;
+            var arr2 = this.state.disabledGames;
+            for (let i=0; i<arr2.length;i++) {
+                if (arr2[i].abbrv == g) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index > -1) {
+                arr2.splice(index, 1);
+            }
+
+            var arr = this.state.pendingEnable
+            for (let x of this.state.games){
+                if (g == x.abbrv) {
+                    arr.push(x);
+                    break;
+                }
+            }
+            this.setState({pendingEnable:arr, disabledGames:arr2});
+
+        }
+
+        else if (e.target.className == 'config-enabledGame-pending') {
+
+            
+            var index = -1;
+            var arr2 = this.state.pendingEnable;
+            for (let i=0; i<arr2.length;i++) {
+                if (arr2[i].abbrv == g) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index > -1) {
+                arr2.splice(index, 1);
+            }
+
+            var arr = this.state.disabledGames;
+            for (let x of this.state.games){
+                if (g == x.abbrv) {
+                    arr.push(x);
+                    break;
+                }
+            }
+            this.setState({disabledGames:arr, pendingEnable:arr2});
+
+        }
+
+        else if (e.target.className == 'config-disabledGame-pending') {
+            
+            var index = -1;
+            var arr2 = this.state.pendingDisable;
+            for (let i=0; i<arr2.length;i++) {
+                if (arr2[i].abbrv == g) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index > -1) {
+                arr2.splice(index, 1);
+            }
+
+            var arr = this.state.enabledGames;
+            for (let x of this.state.games){
+                if (g == x.abbrv) {
+                    arr.push(x);
+                    break;
+                }
+            }
+            this.setState({enabledGames:arr, pendingDisable:arr2});
+
+        }
+    }
+
+    handleSave = () => {
+        var games = this.state.enabledGames.concat(this.state.pendingEnable);
+        var arr = [];
+        for (let x of games) {
+            arr.push(x.abbrv);
+        }
+        var str = arr.join();
+        axios.post(apiService+'/updateGameConfig', {
+            games: str
+        })
+        .then(res=>{
+            console.log('******')
+            console.log(res);
+            if (res.status == 200) {
+                window.location = '/profile/settings';
+            }
+            else if (res.status == 500) {
+               this.toast = <Toast message="There was a server error. Please try later." callback={() => ToastHandle(this, false)} />;
+            }
+        });
+    }
+
+    render(){
+
+        var toast;
+
+        if (this.toast !== null) {
+            toast = this.toast;
+        }
+
+        var enabledGamesMap = this.state.enabledGames.map(z => {
+            return <div gameId={z.id} gameabrrv={z.abbrv} className="config-enabledGame" onClick={this.handleClick}>{z.name}</div>
+        });
+        var disabledGamesMap = this.state.disabledGames.map(zz => {
+            return <div gameId={zz.id} gameabbrv={zz.abbrv} className="config-disabledGame" onClick={this.handleClick}>{zz.name}</div>
+        });
+
+        var pendingEnabledGamesMap = this.state.pendingEnable.map(zzz => {
+            return <div gameId={zzz.id} gameabrrv={zzz.abbrv} className="config-enabledGame-pending" onClick={this.handleClick}>{zzz.name}</div>
+        });
+        var pendingDisabledGamesMap = this.state.pendingDisable.map(zzzz => {
+            return <div gameId={zzzz.id} gameabbrv={zzzz.abbrv} className="config-disabledGame-pending" onClick={this.handleClick}>{zzzz.name}</div>
+        });
+
+        return(
+            <div>
+                Enabled Games:
+                {enabledGamesMap}
+                {pendingEnabledGamesMap}
+                <p />
+                Disabled Games:
+                {disabledGamesMap}
+                {pendingDisabledGamesMap}
+                <p />
+                <button onClick={this.handleSave} className="config-save-btn">Save</button>
+                {toast}
+            </div>
+        );
+    }
 }
 
 export default MyProfileConfig;
