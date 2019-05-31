@@ -619,7 +619,7 @@ input:-webkit-autofill:active {
 }
 
 .setTimeInput {
-  height: 800px;
+  height: 600px;
   -webkit-appearance: slider-vertical;
   writing-mode: bt-lr;
 

@@ -205,7 +205,7 @@ class SetTime extends React.Component {
             '23:30'
         ];
         console.log(e.value);
-        this.setState({timeSelected:map[map.length-e.target.value]});
+        this.setState({timeSelected:map[map.length-e.target.value-1]});
     }
 
     render () {
