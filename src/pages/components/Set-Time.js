@@ -1,4 +1,56 @@
 import React from 'react';
+import axios from 'axios';
+import { apiService } from '../../utils.js';
+
+const hours = [
+    '00:00',
+    '00:30',
+    '01:30',
+    '02:00',
+    '02:30',
+    '03:00',
+    '03:30',
+    '04:00',
+    '04:30',
+    '05:00',
+    '05:30',
+    '06:00',
+    '06:30',
+    '07:00',
+    '07:30',
+    '08:00',
+    '08:30',
+    '09:00',
+    '09:30',
+    '10:00',
+    '10:30',
+    '11:00',
+    '11:30',
+    '12:00',
+    '12:30',
+    '13:00',
+    '13:30',
+    '14:00',
+    '14:30',
+    '15:00',
+    '15:30',
+    '16:00',
+    '16:30',
+    '17:00',
+    '17:30',
+    '18:00',
+    '18:30',
+    '19:00',
+    '19:30',
+    '20:00',
+    '20:30',
+    '21:00',
+    '21:30',
+    '22:00',
+    '22:30',
+    '23:00',
+    '23:30'
+];
 
 class SetTime extends React.Component {
     constructor(){
@@ -11,9 +63,10 @@ class SetTime extends React.Component {
             nextMonth:null,
             daySelected:null,
             timesSelected:[],
-            timesSelectedMap:[],
             timesShown:[],
-            timesShownMap:[]
+            timesAlreadySelected:[],
+            timesAlreadySelectedConst:[],
+            timesDelete:[]
         }
         this.days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
         this.months = [
@@ -66,55 +119,7 @@ class SetTime extends React.Component {
                 days: 31
             }
         ];
-        this.hours = [
-            '00:00',
-            '00:30',
-            '01:30',
-            '02:00',
-            '02:30',
-            '03:00',
-            '03:30',
-            '04:00',
-            '04:30',
-            '05:00',
-            '05:30',
-            '06:00',
-            '06:30',
-            '07:00',
-            '07:30',
-            '08:00',
-            '08:30',
-            '09:00',
-            '09:30',
-            '10:00',
-            '10:30',
-            '11:00',
-            '11:30',
-            '12:00',
-            '12:30',
-            '13:00',
-            '13:30',
-            '14:00',
-            '14:30',
-            '15:00',
-            '15:30',
-            '16:00',
-            '16:30',
-            '17:00',
-            '17:30',
-            '18:00',
-            '18:30',
-            '19:00',
-            '19:30',
-            '20:00',
-            '20:30',
-            '21:00',
-            '21:30',
-            '22:00',
-            '22:30',
-            '23:00',
-            '23:30'
-        ];
+       
     }
 
 
@@ -158,9 +163,27 @@ class SetTime extends React.Component {
 
         function handleClick(e){
             var str = `${e.x.day}/${e.x.month}/${e.x.year}`;
-            //get already selected times for this day from server and set timesShown and timesSelected states
-            console.log(t.hours);
-            t.setState({daySelected:{obj:e.x,str:str}, timesShown:t.hours});
+            var str2 = `${e.x.day}-${e.x.month}-${e.x.year}`;
+    
+            var times = [...hours];
+            var timesAlreadySelected = [];
+    
+            axios.post(apiService+'/getTimes', {day:str2})
+            .then(x=>{
+                for (let y of x.data) {
+                    var i = times.indexOf(y.time);
+                    if (i !== -1) {
+                        times.splice(i,1);
+                        timesAlreadySelected.push(y.time);
+                    }
+                }
+                t.setState({daySelected:{obj:e.x,str:str,str2:str2}, timesShown:times, timesSelected:[],timesAlreadySelected:timesAlreadySelected, timesAlreadySelectedConst:[...timesAlreadySelected]});
+            })
+            .catch(x=>{
+                t.setState({daySelected:{obj:e.x,str:str,str2:str2}, timesShown:times, timesSelected:t.state.timesSelected});
+            });
+
+            t.setState({daySelected:{obj:e.x,str:str,str2:str2}, timesShown:times, timesSelected:[]});
         }
 
         function makeCal(days, sdi, m, y){
@@ -176,14 +199,13 @@ class SetTime extends React.Component {
                 }
                 else {
                     var day = i - pushCounter;
-                    arr.push({day:day, month: m, year: y});
+                    arr.push({day:day, month: m+1, year: y});
                 }
             }
             return arr;
         }
 
         function mapCal(x){
-            console.log(x);
             var content;
             var oc;
             var className = 'calendarSquare';
@@ -193,7 +215,7 @@ class SetTime extends React.Component {
             }
             if (x !== null) {
                 if (x.day !== undefined) {
-                    oc = function() {handleClick({x})};
+                    oc = function(e) {handleClick({x})};
                     content = x.day;
                 }
             }
@@ -207,20 +229,73 @@ class SetTime extends React.Component {
     }
 
     handleTimeClick = (x,f) => {
+        var a = this.state.timesSelected;
+        var b = this.state.timesShown;
+        var c = this.state.timesAlreadySelected;
+        var d = this.state.timesDelete;
+
         if (f === 'time') {
-            var a = this.state.timesSelected;
-            var b = this.state.timesShown;
-            a.push(x);
+            if (this.state.timesAlreadySelectedConst.indexOf(x)>-1) {
+                c.push(x);
+            }
+            else {
+                a.push(x);
+            }
             var i = b.indexOf(x);
             b.splice(i,1);
-            this.setState({timesSelected:a, timesShown:b});
         }
+        else if (f === 'time-selected') {
+            b.push(x);
+            var i = a.indexOf(x);
+            a.splice(i,1);
+        }
+        else if (f === 'time-selected-already') {
+            b.push(x);
+            d.push(x);
+            var i = c.indexOf(x);
+            c.splice(i,1);
+        }
+        this.setState({timesSelected:a, timesShown:b, timesAlreadySelected:c, timesDelete:d});
+    }
+
+    handleChange = (e) => {
+        this.setState({price:e.target.value});
     }
     
-    handleReset = (x) => {
-        console.log('reset with ');
-        console.log(x);
-        this.setState({timesSelected:[], timesShown: x});
+    handleReset = () => {
+        var times = [...hours];
+        for (let y of this.state.timesAlreadySelectedConst) {
+            var i = times.indexOf(y);
+            if (i !== -1) {
+                times.splice(i,1);
+            }
+        }
+        this.setState({timesSelected:[], timesShown: times, timesAlreadySelected: [...this.state.timesAlreadySelectedConst], timesDelete:[]});
+    }
+
+    handleSave = (e) => {
+        var price = this.state.price;
+        if (price % 1 !== 0) {
+            price = Math.floor(price);
+        }
+        var payload1 = {
+            day: this.state.daySelected,
+            times: this.state.timesDelete
+        }
+        var payload2 = {
+            day: this.state.daySelected,
+            price: this.state.price,
+            times:this.state.timesSelected
+        };
+        axios.post(apiService+'/deleteTimes', payload1)
+        .then(x=>{
+            axios.post(apiService+'/updateTimes', payload2)
+            .then(res=>{
+                if (res.statusText === 'OK') {
+                   this.setState({daySelected:null, timesSelected:[], timesDelete:[]});
+                }
+            });
+        });
     }
 
     componentDidMount(){
@@ -240,10 +315,22 @@ class SetTime extends React.Component {
         return <div className="time-selected" onClick={()=>{this.handleTimeClick(x,'time-selected')}}>{x}</div>;
         });
 
+        var alreadySelectedMap = this.state.timesAlreadySelected.map(x=>{
+            return <div className="time-selected-already" onClick={()=>{this.handleTimeClick(x,'time-selected-already')}}>{x}</div>;
+        });
+
 
         var resetBtn;
-        if (timesSelectedMap.length > 0) {
-            resetBtn = <button onClick={()=>{this.handleReset(this.hours)}}>Reset Day's Selections</button>
+        var saveBtn;
+        var inpt;
+        if (timesSelectedMap.length > 0 || this.state.timesDelete.length > 0) {
+            resetBtn = <button onClick={()=>{this.handleReset()}}>Reset Day's Selections</button>
+            if (timesSelectedMap.length > 0) {
+                inpt = <div>How much to charge for these slots (s):<p /><input className="price-time-input" onChange={(e)=>{this.handleChange(e)}}></input></div>;
+            }
+            if (this.state.price > 0 || this.state.timesDelete.length > 0) {
+                saveBtn = <button onClick={()=>{this.handleSave()}}>Save Selections</button>
+            }
         }
 
         var timeSelector;
@@ -258,6 +345,10 @@ class SetTime extends React.Component {
             {timesSelectedMap}
             </div>
 
+            <div className="selectTimesWrapper-right-inner">
+            {alreadySelectedMap}
+            </div>
+
             </div>;
         }
 
@@ -267,17 +358,19 @@ class SetTime extends React.Component {
                 <div className="setTimeWrapper">
                 <div className="setTimeWrapper-left">
                 <div className="calenderMonth">{this.state.thisMonth}</div>
-                <div className="calendarContainer">
+                <div className="calendarContainer1">
                 {this.state.thisMonthCalendar}
                 </div>
                 <p />
                 <div className="calenderMonth">{this.state.nextMonth}</div>
-                <div className="calendarContainer">
+                <div className="calendarContainer2">
                 {this.state.nextMonthCalendar}
                 </div>
                 </div>
                 <div className="setTimeWrapper-right">
                 {timeSelector}<p />
+                {inpt}<p />
+                {saveBtn}
                 {resetBtn}
                 </div>
                 </div>

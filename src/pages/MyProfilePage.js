@@ -12,7 +12,7 @@ class MyProfilePage extends React.Component {
             loading: true,
             userId: null,
             data: {},
-            avatar: null,
+            avatar: null
         }
     }
 
@@ -22,7 +22,7 @@ class MyProfilePage extends React.Component {
             .then(res=> {
                 var avatar = null;
                  if (res.data[0].twitchavatar !== null) avatar = res.data[0].twitchavatar;
-               this.setState({loading:false, data:res.data, userId:id, avatar: avatar});
+                this.setState({loading:false, data:res.data, userId:id, avatar: avatar});
             });
         }
 
@@ -73,7 +73,7 @@ class MyProfilePage extends React.Component {
                 <div>
                 <Header userIdCallback={this.getUserId} />
                 <Link to={'/profile/settings'}>Account Settings</Link><p />
-                <ProfileMain playerName={this.state.data[0].name} playerGames={this.state.data[0].games} playerLevel={this.state.data[0].level} coins={this.state.data[0].coins} twitchauthed={this.state.data[0].twitchauthed} twitchusername={this.state.data[0].twitchusername} host={this.state.data[0].host} avatar={this.state.avatar}/>
+                <ProfileMain playerName={this.state.data[0].name} playerGames={this.state.data[0].games} playerLevel={this.state.data[0].level} coins={this.state.data[0].coins} twitchauthed={this.state.data[0].twitchauthed} twitchusername={this.state.data[0].twitchusername} host={this.state.data[0].host} avatar={this.state.avatar} userid={this.state.userid} />
                 </div>
             );
         } 

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { apiService } from '../utils.js';
 import { Header, Footer, Toast, ToastHandle } from './components/template.js';
 import { ProfileMain } from './components/profile.js';
-import DatePicker from "react-datepicker";
+import SetTime from './components/Set-Time.js';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 class MyProfileConfig extends React.Component {
@@ -116,11 +116,7 @@ class MyProfileConfig extends React.Component {
             <div className="configTitleText">Host Settings</div>
             <div className="configBodyText">
                 Set your timetable!<p />
-                <DatePicker
-                    selected={this.state.startDate}
-                    onChange={this.handleChange}
-                    includeDates={this.state.availableDays}
-                />
+            <SetTime />
             </div>
         </div>;
         }

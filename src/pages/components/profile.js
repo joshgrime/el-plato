@@ -1,5 +1,8 @@
 import React from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { apiService } from '../../utils.js';
+
 
 class ProfileMini extends React.Component {
     constructor(props) {
@@ -45,6 +48,9 @@ class ProfileMini extends React.Component {
 class ProfileMain extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            hostGames: []
+        };
         this.games = (function(g){
                     if (g === null) return 'None';
                         var str = '';
@@ -64,14 +70,47 @@ class ProfileMain extends React.Component {
                          })(this.props.margin);
 
         this.goToTwitch = this.goToTwitch.bind(this);
+        this.getPlayerAvailability = this.getPlayerAvailability.bind(this);
 
     }
+
+    getPlayerAvailability = (id) => {
+
+        axios.get(apiService+'/hostNearGames/'+id)
+        .then(res=>{
+            this.setState({hostGames:res.data});
+        })
+        .catch(res=>{
+            console.log('server error');
+        });
+
+    }
+
 
     goToTwitch = () => {
         window.open("https://www.twitch.tv/"+this.props.twitchusername);
     }
 
+    componentDidMount(){
+        if (this.props.userid !== null && this.props.userid !== undefined) {
+            this.getPlayerAvailability(this.props.userid);
+        }
+    }
+
     render (){
+
+        var hostGamesMap = this.state.hostGames.map(x=>{
+            var className;
+            var bookBtn;
+            if (x.booked === 0) {
+                className = 'hostGame-notBooked';
+                bookBtn = <button className="bookBtnMini">Book</button>
+            }
+            else {
+                className = 'hostGame-Booked'
+            }
+            return <div className={className}>{x.date} - {x.time} ..... {x.price} {bookBtn}</div>
+        });
 
         var avatar;
         if (this.props.avatar !== null) {
@@ -105,12 +144,15 @@ class ProfileMain extends React.Component {
                     {twitch}
                     <div className="profile_main_level">Level: {this.props.playerLevel}</div>
                     <div className="profile_main_games">{this.games}<br />{coins}</div>
+                    <p />
+                    <div className="player_slots">                   
+                    {hostGamesMap}
+                    </div>
                 </div>
                 
             </div>
         );
     }
-
 }
 
 export {
