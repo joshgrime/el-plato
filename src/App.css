@@ -609,7 +609,98 @@ input:-webkit-autofill:active {
     text-align: center;
 }
 
+.setTimeWrapper {
+  width: 500px;
+  height: 1000px;
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: auto;
+}
 
+.setTimeInput {
+  height: 800px;
+  -webkit-appearance: slider-vertical;
+  writing-mode: bt-lr;
+
+}
+
+.setTimeWrapper-left {
+  width: 365px;
+  display: flex;
+  flex-direction: column;
+}
+
+.setTimeWrapper-right {
+  width: 135px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 80px;
+}
+
+.calenderMonth {
+  display: block;
+  width: 364px;
+  border: 1px solid black;
+  height: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-weight: bold;
+  font-size: 26px;
+  line-height: 1.8em;
+}
+
+.calendarContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  flex-wrap: wrap;
+  width: 364px;
+  height: 292px;
+  border: 1px solid black;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 100px;
+}
+
+.calendarSquare {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+}
+
+.calendarSquareg {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+}
+
+
+.calendarSquare:hover {
+  background-color: #4ee580;
+}
+
+.calendarSquare-selected {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+  background-color: #4ee580;
+}
+
+.calendarSquare-day {
+  display: inline-block;
+  width: 50px;
+  height: 30px;
+  border: 1px solid black;
+  background-color: black;
+  color: white;
+  text-align: center;
+  line-height: 1.8em;
+}
 
 .configWrapper {
   display: flex;
