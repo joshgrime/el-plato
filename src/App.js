@@ -10,6 +10,7 @@ import SignUpComplete from './pages/SignupComplete.js';
 import MyProfilePage from './pages/MyProfilePage.js';
 import MyProfileConfig from './pages/MyProfileConfig.js';
 import { CoinsPage, PurchasePage } from './pages/Coins.js';
+import BookingPage from './pages/BookingPage.js';
 import Exchange from './pages/Exchange.js';
 import { BookingCalendar, SetCalendar } from './pages/components/calendar.js';
 import { TwitchIntegration, TwitchComplete } from './pages/TwitchIntegration.js';
@@ -32,6 +33,7 @@ class App extends Component {
          <Route exact path="/exchange" component={Exchange} />
          <Route exact path="/coins" component={CoinsPage} />
          <Route exact path="/coins/purchase" component={PurchasePage} />
+         <Route exact path="/book/:slotid" component={BookingPage} />
          <Route path="/players/:playerId" component={ProfilePage} />
          <Route exact path="/calendar" component={SetCalendar} />
          <Route path="/profile/settings/twitch-authenticate" component={TwitchIntegration} />

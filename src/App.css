@@ -572,6 +572,11 @@ input:-webkit-autofill:active {
   width: auto;
   background-color: #4ee580;
   height: 50px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 500px;
 }
 
 .hostGame-Booked {
@@ -580,6 +585,11 @@ input:-webkit-autofill:active {
   background-color: rgb(128, 0, 43);
   color: white;
   height: 50px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 500px;
 }
 
 .host-profile-tag {
@@ -1036,4 +1046,153 @@ input:-webkit-autofill:active {
   display: block;
   width: 100px;
   height: 40px;
+}
+
+.purchase-Slot {
+  display: flex;
+  flex-direction: row;
+  width: 600px;
+  min-height: 100px;
+  border: 1px solid black;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 5px;
+  background-color: #4ee580;
+  color: white;
+}
+
+
+.purchase-Slot-Booked {
+  display: flex;
+  flex-direction: row;
+  width: 600px;
+  min-height: 100px;
+  border: 1px solid black;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 5px;
+  background-color: rgb(128, 0, 43);
+  color: white;
+}
+
+.purchase-Slot-date {
+  display: block;
+  width: 160px;
+  border-right: 1px solid black;
+  text-align: center;
+  font-weight: bold;
+  padding-top: 25px;
+}
+
+.purchase-Slot-name {
+  display: block;
+    width: 310px;
+    padding: 20px;
+    font-size: 40px;
+}
+
+.purchase-Slot-coins {
+  display: block;
+  padding-top: 35px;
+  padding-left: 20px;
+  font-weight: bolder;
+}
+
+.purchase-Slot-text {
+  display: block;
+  margin-left: auto;
+  margin-right:auto;
+  width: 800px;
+  margin-top: 80px;
+}
+
+.purchase-Slot-btn {
+  display: block;
+  width: 200px;
+  height: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  border: 1px solid black;
+  background-color: #43ec80;
+  color: white;
+  border-radius: 5px;
+  outline: none;
+}
+
+.purchase-Slot-btn-grey {
+  display: block;
+  width: 200px;
+  height: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  border: 1px solid black;
+  background-color: #d1d1d1;
+  color: white;
+  border-radius: 5px;
+  outline: none;
+}
+
+.purchase-Slot-btn:hover {
+  background-color:#6bff9c;
+}
+
+.purchase-Slot-btn:active {
+  background-color: #45d173;
+}
+
+.purchase-Slot-input {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  height: 30px;
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 5px;
+  border: 1px solid black;
+  outline:none;
+  margin-bottom: 50px;
+}
+
+.purchase-Slot-game {
+  display: block;
+  padding: 20px;
+  width: auto;
+  border: 1px solid;
+  border-radius: 5px;
+  margin-left: 20px;
+  color: #4ee580;
+  background-color: white;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+
+.purchase-Slot-game:hover {
+  background-color: #4ee580;
+  color: white;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.purchase-Slot-game-selected {
+  display: inline-block;
+  padding: 20px;
+  width: auto;
+  border: 1px solid;
+  border-radius: 5px;
+  margin-left: 20px;
+  color: white;
+  background-color: #4ee580;
+  font-weight: bold;
+  border: 1px solid black;
+}
+
+.purchase-Slot-game-selected:hover {
+  color: #4ee580;
+  background-color: white;
+  cursor: pointer;
 }

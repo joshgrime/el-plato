@@ -104,7 +104,7 @@ class ProfileMain extends React.Component {
             var bookBtn;
             if (x.booked === 0) {
                 className = 'hostGame-notBooked';
-                bookBtn = <button className="bookBtnMini">Book</button>
+                bookBtn = <Link to={'/book/'+x.id}><button className="bookBtnMini">Book</button></Link>
             }
             else {
                 className = 'hostGame-Booked'
